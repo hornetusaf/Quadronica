@@ -1,0 +1,535 @@
+<?php session_start(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="get" action="">
+<center>
+<h2>Bienvenido <?php echo $_SESSION["nombre"]; ?></h2>
+    
+<?php
+	if(isset($_GET["reset"]))
+	{
+		session_destroy();
+		header("location:index.php");
+	}
+	if($_SESSION["inicio"])
+	{
+		for($i=0;$i<12;$i++)
+			for($j=0;$j<12;$j++)
+				$matriz[$i][$j]=rand(1,6);
+			
+		$_SESSION["matriz"]=$matriz;
+		
+		for($i=0;$i<12;$i++)
+			for($j=0;$j<12;$j++)
+			{
+				if($_SESSION["matriz"][$i][$j]==1)
+					$_SESSION["matriz_oculta"][$i][$j]="amarillo";
+				if($_SESSION["matriz"][$i][$j]==2)
+					$_SESSION["matriz_oculta"][$i][$j]="rojo";
+				if($_SESSION["matriz"][$i][$j]==3)
+					$_SESSION["matriz_oculta"][$i][$j]="azul";
+				if($_SESSION["matriz"][$i][$j]==4)
+					$_SESSION["matriz_oculta"][$i][$j]="verde";
+				if($_SESSION["matriz"][$i][$j]==5)
+					$_SESSION["matriz_oculta"][$i][$j]="marron";
+				if($_SESSION["matriz"][$i][$j]==6)
+					$_SESSION["matriz_oculta"][$i][$j]="morado";
+			}
+		
+		$_SESSION["turno"]=0;
+		$_SESSION["puntaje"]=0;
+		$_SESSION["fallas"]=0;
+		$_SESSION["inicio"]=false;	
+	}
+	
+	if($_SESSION["turno"]==0)
+	{		
+		if($_GET["color"]=="amarillo")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=11;	
+		}
+		if($_GET["color"]=="rojo")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=12;	
+		}
+		if($_GET["color"]=="azul")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=13;	
+		}
+		if($_GET["color"]=="verde")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=14;	
+		}
+		if($_GET["color"]=="marron")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=15;	
+		}
+		if($_GET["color"]=="morado")
+		{
+			$_SESSION["turno"]=1;
+			$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=16;	
+		}
+	}
+	else
+		if($_SESSION["turno"]==1)
+		{		
+			if($_GET["color"]=="amarillo")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=11;	
+			}
+			if($_GET["color"]=="rojo")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=12;	
+			}
+			if($_GET["color"]=="azul")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=13;	
+			}
+			if($_GET["color"]=="verde")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=14;	
+			}
+			if($_GET["color"]=="marron")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=15;	
+			}
+			if($_GET["color"]=="morado")
+			{
+				$_SESSION["turno"]=2;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=16;	
+			}
+			if($_GET["color"]=="amarillo_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=1;	
+			}
+			if($_GET["color"]=="rojo_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=2;	
+			}
+			if($_GET["color"]=="azul_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=3;	
+			}
+			if($_GET["color"]=="verde_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=4;	
+			}
+			if($_GET["color"]=="marron_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=5;	
+			}
+			if($_GET["color"]=="morado_click")
+			{
+				$_SESSION["turno"]=0;
+				$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=6;	
+			}
+		}
+		else
+			if($_SESSION["turno"]==2)
+			{		
+				if($_GET["color"]=="amarillo")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=11;	
+				}
+				if($_GET["color"]=="rojo")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=12;	
+				}
+				if($_GET["color"]=="azul")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=13;	
+				}
+				if($_GET["color"]=="verde")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=14;	
+				}
+				if($_GET["color"]=="marron")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=15;	
+				}
+				if($_GET["color"]=="morado")
+				{
+					$_SESSION["turno"]=3;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=16;	
+				}
+				if($_GET["color"]=="amarillo_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=1;	
+				}
+				if($_GET["color"]=="rojo_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=2;	
+				}
+				if($_GET["color"]=="azul_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=3;	
+				}
+				if($_GET["color"]=="verde_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=4;	
+				}
+				if($_GET["color"]=="marron_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=5;	
+				}
+				if($_GET["color"]=="morado_click")
+				{
+					$_SESSION["turno"]=1;
+					$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=6;	
+				}
+			}
+			else
+				if($_SESSION["turno"]==3)
+				{		
+					if($_GET["color"]=="amarillo")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=11;	
+					}
+					if($_GET["color"]=="rojo")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=12;	
+					}
+					if($_GET["color"]=="azul")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=13;	
+					}
+					if($_GET["color"]=="verde")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=14;	
+					}
+					if($_GET["color"]=="marron")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=15;	
+					}
+					if($_GET["color"]=="morado")
+					{
+						$_SESSION["turno"]=4;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=16;	
+					}
+					if($_GET["color"]=="amarillo_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=1;	
+					}
+					if($_GET["color"]=="rojo_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=2;	
+					}
+					if($_GET["color"]=="azul_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=3;	
+					}
+					if($_GET["color"]=="verde_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=4;	
+					}
+					if($_GET["color"]=="marron_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=5;	
+					}
+					if($_GET["color"]=="morado_click")
+					{
+						$_SESSION["turno"]=2;
+						$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=6;	
+					}		
+				}
+				else
+					if($_SESSION["turno"]==4)
+					{												
+						if($_GET["color"]=="amarillo_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=1;	
+						}
+						if($_GET["color"]=="rojo_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=2;	
+						}
+						if($_GET["color"]=="azul_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=3;	
+						}
+						if($_GET["color"]=="verde_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=4;	
+						}
+						if($_GET["color"]=="marron_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=5;	
+						}
+						if($_GET["color"]=="morado_click")
+						{
+							$_SESSION["turno"]=3;
+							$_SESSION["matriz"][$_GET["fila"]][$_GET["columna"]]=6;	
+						}
+						
+						if($_GET["color"]=="amarillo" || $_GET["color"]=="rojo" || $_GET["color"]=="azul" || $_GET["color"]=="verde" || $_GET["color"]=="marron" || $_GET["color"]=="morado")
+						{
+							//echo "chequeo ";
+							$k=0;
+							for($i=0;$i<12;$i++)
+								for($j=0;$j<12;$j++)
+								{
+									if($_SESSION["matriz"][$i][$j]==11 || $_SESSION["matriz"][$i][$j]==12 || $_SESSION["matriz"][$i][$j]==13 || $_SESSION["matriz"][$i][$j]==14 || $_SESSION["matriz"][$i][$j]==15 || $_SESSION["matriz"][$i][$j]==16)
+									{										
+									 	$vec_colores[$k]=$_SESSION["matriz_oculta"][$i][$j];
+										$vec_i[$k]=$i;
+										$vec_j[$k]=$j;
+										//echo " veci=".$vec_i[$k]." vecj=".$vec_j[$k];	
+										$k++;									
+									}									
+								}
+							if($vec_colores[0]==$vec_colores[1] && $vec_colores[1]==$vec_colores[2] && $vec_colores[2]==$vec_colores[3])
+							{
+								$band1=true;
+								//echo "colores correctos ";
+							}
+							else
+							{
+								$band1=false;
+								//echo "colores incorrectos falla ";
+							}
+								
+							if($vec_i[0]==$vec_i[1] && $vec_i[2]==$vec_i[3] && $vec_j[0]==$vec_j[2] && $vec_j[1]==$vec_j[3])
+							{
+								$band2=true;
+								//echo "posiciones correctas ";
+							}
+							else
+							{
+								$band2=false;
+								//echo "posiciones incorrectos falla ";
+							}
+							
+							if($band1 && $band2)
+							{
+								//echo " veci 3=".$vec_i[3]." veci 2=".$vec_i[2]." vecj 3=".$vec_j[3]." vecj 1=".$vec_j[1];
+								$base=($vec_j[3]-$vec_j[2])+1;
+								$altura=($vec_i[3]-$vec_i[1])+1;
+								$bxh=$base*$altura;
+								$_SESSION["puntaje"]+=$bxh;
+								
+								for($i=$vec_i[0];$i<$vec_i[2]+1;$i++)
+									for($j=$vec_j[2];$j<$vec_j[3]+1;$j++)
+										$matriz[$i][$j]=rand(1,6);
+								$_SESSION["matriz"]=$matriz;
+								
+								for($i=0;$i<12;$i++)
+									for($j=0;$j<12;$j++)
+									{
+										if($_SESSION["matriz"][$i][$j]==1)
+											$_SESSION["matriz_oculta"][$i][$j]="amarillo";
+										if($_SESSION["matriz"][$i][$j]==2)
+											$_SESSION["matriz_oculta"][$i][$j]="rojo";
+										if($_SESSION["matriz"][$i][$j]==3)
+											$_SESSION["matriz_oculta"][$i][$j]="azul";
+										if($_SESSION["matriz"][$i][$j]==4)
+											$_SESSION["matriz_oculta"][$i][$j]="verde";
+										if($_SESSION["matriz"][$i][$j]==5)
+											$_SESSION["matriz_oculta"][$i][$j]="marron";
+										if($_SESSION["matriz"][$i][$j]==6)
+											$_SESSION["matriz_oculta"][$i][$j]="morado";
+									}
+							}
+							else
+							{
+								 $_SESSION["fallas"]++;
+								 
+								 for($k=0;$k<4;$k++)
+								 {
+								 	if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==11)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=1;
+									if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==12)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=2;
+									if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==13)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=3;
+									if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==14)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=4;
+									if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==15)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=5;
+									if($_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]==16)
+								 		$_SESSION["matriz"][$vec_i[$k]][$vec_j[$k]]=6;
+								 }
+								
+								 for($i=0;$i<12;$i++)
+									 for($j=0;$j<12;$j++)
+									 {
+										 if($_SESSION["matriz"][$i][$j]==1)
+											 $_SESSION["matriz_oculta"][$i][$j]="amarillo";
+										 if($_SESSION["matriz"][$i][$j]==2)
+											 $_SESSION["matriz_oculta"][$i][$j]="rojo";
+										 if($_SESSION["matriz"][$i][$j]==3)
+											 $_SESSION["matriz_oculta"][$i][$j]="azul";
+										 if($_SESSION["matriz"][$i][$j]==4)
+											 $_SESSION["matriz_oculta"][$i][$j]="verde";
+										 if($_SESSION["matriz"][$i][$j]==5)
+											 $_SESSION["matriz_oculta"][$i][$j]="marron";
+										 if($_SESSION["matriz"][$i][$j]==6)
+											 $_SESSION["matriz_oculta"][$i][$j]="morado";
+									 }								 
+							}
+							
+							$_SESSION["turno"]=0;							
+						}
+						else
+							if($_SESSION["turno"]==5)
+							{
+								session_destroy();
+								header("location:index.php");
+							}
+					}
+	
+	?>
+    <table border="5" align="center" cellpadding="3" cellspacing="3" bordercolor="#00CC33">
+    <?php	
+	for($i=0;$i<12;$i++)
+	{
+		?>
+      	<tr>
+        <?php
+		for($j=0;$j<12;$j++)
+		{
+   			if($_SESSION["matriz"][$i][$j]==1)
+   			{
+    		?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=amarillo"><img width="30" heigth="30" src="Imagenes/amarillo.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==2)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=rojo"><img width="30" heigth="30" src="Imagenes/rojo.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==3)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=azul"><img width="30" heigth="30" src="Imagenes/azul.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==4)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=verde"><img width="30" heigth="30" src="Imagenes/verde.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==5)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=marron"><img width="30" heigth="30" src="Imagenes/marron.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==6)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=morado"><img width="30" heigth="30" src="Imagenes/morado.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==11)
+   			{
+    		?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=amarillo_click"><img width="30" heigth="30" src="Imagenes/amarillo_click.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==12)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=rojo_click"><img width="30" heigth="30" src="Imagenes/rojo_click.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==13)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=azul_click"><img width="30" heigth="30" src="Imagenes/azul_click.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==14)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=verde_click"><img width="30" heigth="30" src="Imagenes/verde_click.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==15)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=marron_click"><img width="30" heigth="30" src="Imagenes/marron_click.jpg"/></a></td>
+        	<?php
+			}
+			if($_SESSION["matriz"][$i][$j]==16)
+			{
+			?>
+        		<td><a href="quadronica.php?fila=<?php echo $i; ?>&columna=<?php echo $j; ?>&color=morado_click"><img width="30" heigth="30" src="Imagenes/morado_click.jpg"/></a></td>
+        	<?php
+			}
+  		}
+  		?>
+      	</tr>
+      	<?php  
+	}
+	?>
+    </table>
+    <p>
+      <input type="submit" name="reset" id="reset" value="Reiniciar" />
+    </p>
+    <h1>Puntaje:<?php echo $_SESSION["puntaje"];?></h1>
+    <h1>Fallas:<?php echo $_SESSION["fallas"];?></h1>
+ 	<?php
+    	if($_SESSION["fallas"]>4)
+		{
+			?><h1><?php echo "Has perdido la partida ".$_SESSION["nombre"]." Reinicia con el boton";?></h1><?php
+			$_SESSION["turno"]=5;
+		}
+		if($_SESSION["puntaje"]>=30)
+		{
+			?><h1><?php echo "Has ganado la partida ".$_SESSION["nombre"]." Reinicia con el boton";?></h1><?php
+			$_SESSION["turno"]=5;
+		}
+	?>
+</center>
+</form>
+</body>
+</html>
